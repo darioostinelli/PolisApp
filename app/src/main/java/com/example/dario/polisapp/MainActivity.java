@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         JSONArray userThingList = apiHandler.getUserThingList();
-        String a;
+        text.setText(userThingList.toString());
 
 
     }
