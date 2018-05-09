@@ -82,6 +82,11 @@ public class ApiHandler {
         return array;
     }
 
+    /**
+     *
+     * @param thingTag
+     * @return JSONObject contenente le informazioni sullo stato della richiesta e l'array con le metriche
+     */
     public JSONObject getMetricsList(String thingTag) {
         String result = this.session.apiCall("getMetrics", HttpRequest.POST, "{\"thingTag\":\"" + thingTag + "\"}");
         JSONObject object = null;
@@ -91,5 +96,42 @@ public class ApiHandler {
             e.printStackTrace();
         }
         return object;
+    }
+
+    /**
+     *
+     * @param thingTag
+     * @return JSONArray ritorna un array contenente gli oggetti con metriche e vettore di log
+     */
+    public JSONArray getMetricLogs(String thingTag) {
+        String result = this.session.apiCall("getMetricLogs", HttpRequest.POST, "{\"thingTag\":\"" + thingTag + "\"}");
+        JSONArray array = null;
+        if(isJSONObjectValid(result)){
+            return null;
+        }
+        try {
+            array = new JSONArray(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    private boolean isJSONObjectValid(String test) {
+        try {
+            new JSONObject(test);
+        } catch (JSONException ex) {
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isJSONArrayValid(String test) {
+        try {
+            new JSONArray(test);
+        } catch (JSONException ex) {
+            return false;
+        }
+        return true;
     }
 }

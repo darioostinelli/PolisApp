@@ -64,4 +64,19 @@ public class Thing {
             }
         }
     }
+
+    public List<Metric> getLogs(ApiHandler api) throws JSONException {
+        List<Metric> list = new ArrayList<Metric>();
+        JSONArray array = api.getMetricLogs(this.tag);
+        if(array == null){
+            return null;
+        }
+        for(int i = 0; i < array.length(); i++){
+            JSONObject obj = array.getJSONObject(i);
+            JSONArray logs = obj.getJSONArray("list");
+            Metric m = new Metric(obj, logs);
+            list.add(m);
+        }
+        return list;
+    }
 }

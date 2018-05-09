@@ -40,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
         initThingList(userThingList);
         text.setText(userThingList.toString());
         Thing t = thingList.get(0);
+        List<Metric> l = null;
         try {
-            text.setText(t.getMetricList(apiHandler).toString());
+           l =  t.getLogs(apiHandler);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        String a = "a";
+        text.setText(l.toString());
     }
 
     private void initThingList(JSONArray array){
