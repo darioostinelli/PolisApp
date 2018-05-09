@@ -1,9 +1,13 @@
 package com.example.dario.polisapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.concurrent.ExecutionException;
 
@@ -78,4 +82,14 @@ public class ApiHandler {
         return array;
     }
 
+    public JSONObject getMetricsList(String thingTag) {
+        String result = this.session.apiCall("getMetrics", HttpRequest.POST, "{\"thingTag\":\"" + thingTag + "\"}");
+        JSONObject object = null;
+        try {
+            object = new JSONObject(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
 }
